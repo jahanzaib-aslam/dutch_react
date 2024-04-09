@@ -1,0 +1,15 @@
+.shoppingCart{
+    padding: 50px 0;
+    .shoppingTable{
+        width: 100%;
+        margin-bottom: 30px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        table{
+            width: 100%;
+            thead{
+                border-bottom: 1px solid #ebebeb;
+            }
+        }
+    }
+}

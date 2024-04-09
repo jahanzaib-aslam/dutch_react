@@ -1,0 +1,26 @@
+.program{
+    width: calc(100% + 100px);
+    margin: 0 -50px;
+    padding: 0 30px;
+    top: -40px;
+    div[class*="row"]{
+        padding: 30px 0px;
+    }
+    .statsItem{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        .statsIcon{
+            flex: 0 0 auto;
+            width: 56px;
+            img{
+                width: 100%;
+            }
+        }
+        .statsText{
+            flex: 1;
+            padding-left: 15px;
+        
+        }
+    }
+}

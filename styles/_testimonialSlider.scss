@@ -1,0 +1,204 @@
+.testimonial-holder {
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .testimonial-holder {
+    display: block;
+  }
+}
+
+.testimonial-holder .col1 {
+  width: 50%;
+  display: inline-block;
+}
+
+@media (max-width: 767px) {
+  .testimonial-holder .col1 {
+    width: 100%;
+    padding: 0 20px;
+    
+  }
+}
+
+.testimonial-holder .col2 {
+  width: 50%;
+  display: inline-block;
+}
+
+@media (max-width: 767px) {
+  .testimonial-holder .col2 {
+    width: 380px;
+    padding: 0;
+    margin: 0 auto;
+    float: none;
+    overflow: hidden;
+    display: none;
+  }
+}
+
+.testimonial-holder .col2 .slick-slider {
+  width: 500px;
+  height: 500px;
+  background-image: url("/images/orbit.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  animation: clockwiseSpin 30s infinite linear;
+}
+@keyframes clockwiseSpin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 767px) {
+  .testimonial-holder .col2 .slick-slider {
+    width: 380px;
+    height: 380px;
+  }
+}
+
+.testimonial-holder .col2 .slick-slider .slick-slide {
+  margin: 0;
+  width: 50px !important;
+  height: 50px !important;
+  overflow: hidden;
+  border-radius: 50%;
+  display: none;
+  transition: all ease 0.3s;
+  -webkit-animation: antiClockwiseSpin 30s infinite linear;
+  animation: antiClockwiseSpin 30s infinite linear;
+}
+
+.testimonial-holder .col2 .slick-slider .slick-slide.slick-current {
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  margin: -35px 0 0 -35px !important;
+  width: 70px !important;
+  height: 70px !important;
+  display: block;
+}
+
+.testimonial-holder .col2 .slick-slider .slick-slide.slick-active {
+  display: block;
+}
+
+.testimonial-holder .col2 .slick-slider .slick-slide:nth-child(6n + 1) {
+  position: absolute;
+  position: absolute;
+  top: 12%;
+  left: 63%;
+  transition: all ease 0.3s;
+}
+
+.testimonial-holder .col2 .slick-slider .slick-slide:nth-child(6n + 2) {
+  position: absolute;
+  position: absolute;
+  top: 80%;
+  left: 35%;
+  transition: all ease 0.3s;
+}
+
+.testimonial-holder .col2 .slick-slider .slick-slide:nth-child(6n + 3) {
+  position: absolute;
+  position: absolute;
+  top: 37%;
+  left: 18%;
+  transition: all ease 0.3s;
+}
+
+.testimonial-holder .col2 .slick-slider .slick-slide:nth-child(6n + 4) {
+  position: absolute;
+  position: absolute;
+  top: 56%;
+  left: 71%;
+}
+
+.testimonial-holder .col2 .slick-slider .slick-slide:nth-child(6n + 5) {
+  position: absolute;
+  position: absolute;
+  top: 25%;
+  left: 44%;
+  transition: all ease 0.3s;
+}
+
+.testimonial-holder .col2 .slick-slider .slick-slide:nth-child(6n + 6) {
+  position: absolute;
+  position: absolute;
+  top: 54%;
+  left: 9%;
+  transition: all ease 0.3s;
+}
+
+.testimonial-holder .col2 .slick-slider .slick-list {
+  height: 100%;
+  padding: 0 !important;
+}
+
+.testimonial-holder .col2 .slick-slider .slick-track {
+  height: 100%;
+  width: 100% !important;
+  -webkit-transform: none !important;
+  transform: none !important;
+}
+
+.testimonial-holder .msg-box {
+  width: 50%;
+  float: right;
+  text-align: left;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+@media (max-width: 991px) {
+  .testimonial-holder .msg-box {
+    width: 80%;
+   
+  }
+}
+
+@media (max-width: 767px) {
+  .testimonial-holder .msg-box {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.testimonial-holder .msg-box h2 {
+  font: 600 26px/30px "Crimson Text", serif;
+  color: #1c145c;
+  margin: 0 0 20px;
+}
+
+.testimonial-holder .msg-box p {
+  margin: 0 0 20px;
+}
+
+.testimonial-holder .msg-box h3 {
+  font: 600 18px/22px "Crimson Text", serif;
+  color: #1c145c;
+  margin: 0 0 5px;
+}
+
+.testimonial-holder .msg-box .author {
+  color: #1c145c;
+  display: block;
+}
+
+
+.testimonial-holder .slick-slide{
+  margin: unset !important;
+}

@@ -1,0 +1,45 @@
+.form-control{
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.form-control,.form-check-input{
+  &:focus{
+    box-shadow: none;
+  }
+}
+.form-check-label{
+  font-size: 14px;
+    font-weight: 700;
+    color: #646464;
+    margin-bottom: 0;
+
+}
+.form-group{
+  margin-bottom: 15px;
+  .forgot_password{
+    a{
+      color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 16px;
+    &:hover{
+      color: #0056b3;
+    }
+    }
+  }
+}
+.form-wrapper{
+margin: 50px 0;
+}
+

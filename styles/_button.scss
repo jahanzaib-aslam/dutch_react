@@ -1,0 +1,44 @@
+@import "./variable";
+@import "./include-media";
+
+.btn:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+.btn {
+  padding: 8px 18px;
+  user-select: none;
+  font-style: normal;
+
+  font-size: 16px;
+  letter-spacing: .03em;
+  &.btn-primary{
+    background-color: #f1652a;
+    border: 1px solid #f1652a;
+    color: #fff;
+    &:hover{
+      background-color: transparent;
+      color: #f1652a;
+    }
+    &.mainBtn{
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: .03em;
+      color: #fff;
+      background-color: #f1652a;
+      padding: 12px 50px;
+    }
+  }
+  &.btn-outline{
+    border: 1px solid #f1652a;
+    color: #f1652a;
+    &:hover{
+      background-color: #f1652a;
+      color: #fff;
+    }
+  }
+}
+
+.btnBox{
+  text-align: center;
+  margin-top: 40px;
+}

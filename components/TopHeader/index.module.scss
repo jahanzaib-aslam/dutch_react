@@ -1,0 +1,33 @@
+.topHeader{
+    background-color: #272727;
+    padding: 10px 0;
+    a{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    img{
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
+    .topLinks{
+        img{
+            display: inline-block;
+            width: 16px;
+            height: auto;
+        }
+        a{
+            display: inline-block;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1;
+
+        }
+    }
+}

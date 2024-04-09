@@ -1,0 +1,53 @@
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+.h {
+  font-family: inherit;
+  font-weight: 400;
+  margin: 0 0 0.3em;
+  color: #272727;
+}
+h1 {
+  font-size: 64px;
+  line-height: 62px;
+  font-weight: 500;
+}
+
+h6 {
+  font-size: 15px !important;
+}
+
+h5 {
+  font-weight: 300;
+  font-size: 22px !important;
+  margin-bottom: 12px;
+}
+h4{
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: .03em;
+  color: #272727;
+  text-transform: capitalize;
+  margin-bottom: 0;
+}
+
+.stika {
+  font-family: satika;
+  font-style: italic;
+}
+.green {
+  color: #3fd3c6;
+}
+.normal-font{
+  font-family: "Urbanist", sans-serif;
+}
