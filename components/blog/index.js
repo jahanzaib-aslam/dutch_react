@@ -7,7 +7,7 @@ import classes from "./index.module.scss";
 import { Fade, Flip, JackInTheBox, Zoom } from "react-awesome-reveal";
 import Link from "next/link";
 
-const Blog = ({ useSlider, blogPage,data }) => {
+const Blog = ({ useSlider, blogPage, data, text, blogs }) => {
   const blogSlider = [
     {
       id: 1,
@@ -47,8 +47,6 @@ const Blog = ({ useSlider, blogPage,data }) => {
     },
   ];
 
- 
-
   const settings = {
     dots: false,
     infinite: true,
@@ -68,7 +66,7 @@ const Blog = ({ useSlider, blogPage,data }) => {
 
   return (
     <section>
-      <div className={`${classes.trends} ${blogPage&& classes.noBg}`}>
+      <div className={`${classes.trends} ${blogPage && classes.noBg}`}>
         <div className={classes.blogBg}>
           <Container>
             {blogPage ? (
@@ -76,12 +74,8 @@ const Blog = ({ useSlider, blogPage,data }) => {
             ) : (
               <div className={classes.heading}>
                 <Fade direction="left">
-                  <h2>Our Blogs</h2>
-                  <p>
-                    Get inspired and informed by the blogs of our employees. We
-                    regularly publish interesting additions about our surprising
-                    flower assortment.
-                  </p>
+                  <h2>{text[0].heading}</h2>
+                  <p>{text[0].text}</p>
                 </Fade>
               </div>
             )}
@@ -89,7 +83,7 @@ const Blog = ({ useSlider, blogPage,data }) => {
             <div className={classes.content}>
               {useSlider ? (
                 <Slider {...settings} className="blog-slider">
-                  {blogSlider.map((blog) => (
+                  {blogs.map((blog) => (
                     <div key={blog.id}>
                       <Row>
                         <Col>
@@ -97,7 +91,7 @@ const Blog = ({ useSlider, blogPage,data }) => {
                             <JackInTheBox>
                               <div className={classes.imgBox}>
                                 <img
-                                  src={blog.imageUrl}
+                                  src={blog.image}
                                   width={100}
                                   height={100}
                                   alt="Blog Image"
@@ -106,12 +100,12 @@ const Blog = ({ useSlider, blogPage,data }) => {
                             </JackInTheBox>
                             <Zoom>
                               <span>{blog.date}</span>
-                              <p>{blog.content}</p>
+                              <p>{blog.title}</p>
                               <div className="d-flex justify-content-between">
-                              <Link href={blog.link}>
-                              <a >Learn more</a>
-                              </Link>
-                                
+                                <Link href={"blog/edit/" + blog.id}>
+                                  <a>Learn more</a>
+                                </Link>
+
                                 <img
                                   src="images/arrow.png"
                                   width={40}

@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import classes from "./index.module.scss";
 import { Rotate, Zoom } from "react-awesome-reveal";
 
-const Card = () => {
+const Card = (params) => {
   const cardsData = [
     {
       number: 1,
@@ -30,25 +30,22 @@ const Card = () => {
       <Container>
         <Zoom>
           <div className="text-center">
-            <h2>How easy is it?</h2>
-            <p>
-              Do you want to bring the beauty of nature into your home? We will
-              explain how it works in the following 3 steps:
-            </p>
+            <h2>{params.text[0].heading}</h2>
+            <p>{params.text[0].text}</p>
           </div>
         </Zoom>
         <Row>
-          {cardsData.map((card, index) => (
+          {params.cards.map((card, index) => (
             <Col key={index} md={4} sm={6}>
               <Rotate>
                 <div className={classes.cardbg}>
-                  <p>{card.number}</p>
+                  <p>{index + 1}</p>
                 </div>
               </Rotate>
               <div className={classes.workCard}>
                 <Zoom>
-                  <h3>{card.title}</h3>
-                  <span>{card.description}</span>
+                  <h3>{card.heading}</h3>
+                  <span>{card.text}</span>
                 </Zoom>
               </div>
             </Col>
