@@ -103,7 +103,7 @@ const data = [
     length: "50",
   },
 ];
-const ExploreProducts = ({ products }) => {
+const ExploreProducts = ({ products, homeProducts }) => {
   const [activeProductIndex, setActiveProductIndex] = useState(null);
 
   const toggleProductPops = (index) => {
@@ -137,7 +137,7 @@ const ExploreProducts = ({ products }) => {
         )}
 
         <Row>
-          {data.map((item, ind) => {
+          {homeProducts.map((item, ind) => {
             return (
               <Col lg={3} md={6}>
                 <Slide direction={products && "right"}>
@@ -145,7 +145,7 @@ const ExploreProducts = ({ products }) => {
                     <div
                       className="img"
                       style={{
-                        backgroundImage: `url(${item.img})`,
+                        backgroundImage: `url(${item.default_image_url})`,
                         height: "250px",
                         minHeight: "250px",
                       }}
@@ -153,7 +153,7 @@ const ExploreProducts = ({ products }) => {
                       <div
                         className={"hover-img"}
                         style={{
-                          backgroundImage: `url(${item.hoverImg})`,
+                          backgroundImage: `url(${item.default_image_url})`,
                         }}
                       ></div>
                     </div>
@@ -165,7 +165,7 @@ const ExploreProducts = ({ products }) => {
                       </div>
                       <div className="prod-info">
                         <div className="prod-price">
-                          <span>€{item.price}</span>
+                          <span>€{item.unit[0].price.price}</span>
                         </div>
                         <div className="prod-cart">
                           <button
@@ -202,7 +202,7 @@ const ExploreProducts = ({ products }) => {
                         <div className="text-right">
                           <div>{item.stock} Bunches</div>
                           <div>{item.length}cm</div>
-                          <div>€{item.price}</div>
+                          <div>€{item.unit[0].price.price}</div>
                         </div>
                       </div>
                       <div className="mt-2 mb-1">
