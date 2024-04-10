@@ -37,7 +37,7 @@ export default function Home() {
           <Seo />
           <Banner />
           <IntroSection pageData={homeData.data.home_content.section_1} />
-          <ExploreProducts homeProducts={homeData.data.products} />
+          <ExploreProducts products={homeData.data.products} home={true} />
           <Dutchflowers pageData={homeData.data.home_content.section_3} />
           <Card
             text={homeData.data.home_content.section_4}

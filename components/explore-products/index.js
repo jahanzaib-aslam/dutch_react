@@ -103,7 +103,7 @@ const data = [
     length: "50",
   },
 ];
-const ExploreProducts = ({ products, homeProducts }) => {
+const ExploreProducts = ({ products, home }) => {
   const [activeProductIndex, setActiveProductIndex] = useState(null);
 
   const toggleProductPops = (index) => {
@@ -114,7 +114,7 @@ const ExploreProducts = ({ products, homeProducts }) => {
       className={`mt-0 ${classes.card} ${products && classes.productCard}`}
     >
       <Container>
-        {products ? (
+        {!home ? (
           ""
         ) : (
           <div className={classes.slogan}>
@@ -126,7 +126,7 @@ const ExploreProducts = ({ products, homeProducts }) => {
             </Fade>
           </div>
         )}
-        {products && (
+        {!home && (
           <div className="shopSubTitle">
             <p>8247 search results</p>
             <h6 className="fw-bold" style={{ cursor: "pointer" }}>
@@ -135,101 +135,103 @@ const ExploreProducts = ({ products, homeProducts }) => {
             </h6>
           </div>
         )}
-
-        <Row>
-          {homeProducts.map((item, ind) => {
-            return (
-              <Col lg={3} md={6}>
-                <Slide direction={products && "right"}>
-                  <Card className={`my-3 product-item `}>
-                    <div
-                      className="img"
-                      style={{
-                        backgroundImage: `url(${item.default_image_url})`,
-                        height: "250px",
-                        minHeight: "250px",
-                      }}
-                    >
+        {products && (
+          <Row>
+            {products.map((item, ind) => {
+              return (
+                <Col lg={3} md={6}>
+                  <Slide direction={products && "right"}>
+                    <Card className={`my-3 product-item `}>
                       <div
-                        className={"hover-img"}
+                        className="img"
                         style={{
                           backgroundImage: `url(${item.default_image_url})`,
+                          height: "250px",
+                          minHeight: "250px",
                         }}
-                      ></div>
-                    </div>
-                    <div className={"product-bottom"}>
-                      <div className={"prod-title"}>
-                        <a href="#">
-                          <h3>{item.title}</h3>
-                        </a>
+                      >
+                        <div
+                          className={"hover-img"}
+                          style={{
+                            backgroundImage: `url(${item.default_image_url})`,
+                          }}
+                        ></div>
                       </div>
-                      <div className="prod-info">
-                        <div className="prod-price">
-                          <span>€{item.unit[0].price.price}</span>
+                      <div className={"product-bottom"}>
+                        <div className={"prod-title"}>
+                          <a href="#">
+                            <h3>{item.title}</h3>
+                          </a>
                         </div>
-                        <div className="prod-cart">
+                        <div className="prod-info">
+                          <div className="prod-price">
+                            <span>€{item.unit[0].price.price}</span>
+                          </div>
+                          <div className="prod-cart">
+                            <button
+                              className="showPops"
+                              onClick={() => toggleProductPops(ind)}
+                            >
+                              <img src="/images/bag.png" alt="" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className={`product-pops ${
+                          activeProductIndex === ind ? "active" : ""
+                        }`}
+                      >
+                        <div className="closeButton">
                           <button
-                            className="showPops"
+                            className="closePanel"
                             onClick={() => toggleProductPops(ind)}
                           >
-                            <img src="/images/bag.png" alt="" />
+                            <img src="/images/cancel-btn.png" alt="img" />
                           </button>
                         </div>
-                      </div>
-                    </div>
-                    <div
-                      className={`product-pops ${
-                        activeProductIndex === ind ? "active" : ""
-                      }`}
-                    >
-                      <div className="closeButton">
-                        <button
-                          className="closePanel"
-                          onClick={() => toggleProductPops(ind)}
-                        >
-                          <img src="/images/cancel-btn.png" alt="img" />
-                        </button>
-                      </div>
-                      <div className="title mb-2">
-                        <h3>{item.title}</h3>
-                      </div>
-                      <div className="info d-flex w-100 justify-content-between">
-                        <div className="pe-2">
-                          <div>Stock:</div>
-                          <div>Length:</div>
-                          <div>Price:</div>
+                        <div className="title mb-2">
+                          <h3>{item.title}</h3>
                         </div>
-                        <div className="text-right">
-                          <div>{item.stock} Bunches</div>
-                          <div>{item.length}cm</div>
-                          <div>€{item.unit[0].price.price}</div>
+                        <div className="info d-flex w-100 justify-content-between">
+                          <div className="pe-2">
+                            <div>Stock:</div>
+                            <div>Length:</div>
+                            <div>Price:</div>
+                          </div>
+                          <div className="text-right">
+                            <div>{item.stock} Bunches</div>
+                            <div>{item.length}cm</div>
+                            <div>€{item.unit[0].price.price}</div>
+                          </div>
                         </div>
+                        <div className="mt-2 mb-1">
+                          <button className="btn btn-main w-100 mb-1">
+                            More Information
+                          </button>
+                        </div>
+                        <Row>
+                          <Col md={6} className="pe-1">
+                            <input
+                              type="number"
+                              value={1}
+                              className="form-control"
+                            />
+                          </Col>
+                          <Col md={6} className="ps-1">
+                            <button className="addToCart">Add To Cart</button>
+                          </Col>
+                        </Row>
                       </div>
-                      <div className="mt-2 mb-1">
-                        <button className="btn btn-main w-100 mb-1">
-                          More Information
-                        </button>
-                      </div>
-                      <Row>
-                        <Col md={6} className="pe-1">
-                          <input
-                            type="number"
-                            value={1}
-                            className="form-control"
-                          />
-                        </Col>
-                        <Col md={6} className="ps-1">
-                          <button className="addToCart">Add To Cart</button>
-                        </Col>
-                      </Row>
-                    </div>
-                  </Card>
-                </Slide>
-              </Col>
-            );
-          })}
-        </Row>
-        {products ? (
+                    </Card>
+                  </Slide>
+                </Col>
+              );
+            })}
+          </Row>
+        )}
+
+        {!home ? (
           ""
         ) : (
           <Zoom>

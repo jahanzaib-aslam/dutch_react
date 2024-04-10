@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Breadcrumbs from "../../components/breadcrumbs/breadcrumbs";
 import Layout from "../../Layout";
 import Seo from "../../Seo/Seo";
@@ -10,6 +10,27 @@ import ExploreProducts from "../../components/explore-products";
 import Filter from "../../components/filter";
 
 const products = () => {
+  const [products, setProducts] = useState(null);
+  const [categories, setCategories] = useState(null);
+
+  useEffect(() => {
+    // Define the URL of your API endpoint
+    const apiUrl = "https://dutchflowers.devsfolio.com/api/product/list";
+
+    // Fetch data from the API
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // Set the fetched data to the state
+        setProducts(data.data.products.data);
+        setCategories(data.data.categories);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   const breadcrumbItems = [
     { title: "Home", href: "/" },
     { text: "Shop", href: "#" },
@@ -29,7 +50,7 @@ const products = () => {
                 </span>
               </Fade>
             </div>
-            <Filter/>
+            <Filter categories={categories} />
             <div className="shopProducts">
               <div className="letter-block">
                 <div className="inner">
@@ -60,10 +81,9 @@ const products = () => {
                   <div className="letter">y</div>
                   <div className="letter">z</div>
                   <div className="letter">★</div>
-
                 </div>
               </div>
-              <ExploreProducts products/>
+              <ExploreProducts products={products} home={false} />
             </div>
           </section>
         </Container>
