@@ -7,9 +7,20 @@ import { MdSignpost } from "react-icons/md";
 import { IoMail } from "react-icons/io5";
 import { FaWhatsapp } from "react-icons/fa";
 import { Bounce, Flip, Roll, Rotate, Slide, Zoom } from "react-awesome-reveal";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Contact = () => {
   const [contactData, setContactData] = useState(null);
+  const [file, setFile] = useState();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    privacy: false,
+  });
 
   useEffect(() => {
     const contact_info = localStorage.getItem("contact_info");
@@ -21,6 +32,57 @@ const Contact = () => {
     { title: "Home", href: "/" },
     { text: "Contact", href: "#" },
   ];
+
+  const handleChange = (e) => {
+    const { name, value, checked, type } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  function handleFileChange(event) {
+    setFile(event.target.files[0]);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      contact_file: event.target.files[0],
+    }));
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = new FormData();
+    for (const k in formData) {
+      data.append(k, formData[k]);
+    }
+
+    const config = {
+      headers: {
+        ...axios.defaults.headers,
+        "content-type": "multipart/form-data",
+      },
+    };
+    await axios.post(
+      "https://dutchflowers.devsfolio.com/api/contact",
+      formData,
+      config,
+    );
+
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+      privacy: false,
+    });
+
+    Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: "Your message has been received successfully",
+    });
+  };
 
   const data = [
     {
@@ -103,13 +165,15 @@ const Contact = () => {
                   <p>The DutchFlowers team is always there for you.</p>
                 </div>
                 <div className="contactForm">
-                  <Form action="">
+                  <Form onSubmit={handleSubmit}>
                     <Form.Group className="form-group">
                       <Form.Label>FirstName</Form.Label>
                       <Form.Control
                         name="name"
                         type="text"
                         required=""
+                        value={formData.name}
+                        onChange={handleChange}
                       ></Form.Control>
                     </Form.Group>
                     <Form.Group className="form-group">
@@ -118,18 +182,25 @@ const Contact = () => {
                         name="email"
                         type="email"
                         required=""
+                        value={formData.email}
+                        onChange={handleChange}
                       ></Form.Control>
                     </Form.Group>
                     <Form.Group className="form-group">
                       <Form.Label>Phone</Form.Label>
-                      <Form.Control name="phone" type="text"></Form.Control>
+                      <Form.Control
+                        name="phone"
+                        type="text"
+                        onChange={handleChange}
+                        value={formData.phone}
+                      ></Form.Control>
                     </Form.Group>
                     <Form.Group className="form-group">
                       <Form.Label>Appendix</Form.Label>
                       <Form.Control
                         class="form-control h-auto"
-                        name="contact_file"
                         type="file"
+                        onChange={handleFileChange}
                         data-v-7ca6ca36=""
                       />
                     </Form.Group>
@@ -141,13 +212,20 @@ const Contact = () => {
                         as={"textarea"}
                         rows={5}
                         required=""
+                        value={formData.message}
+                        onChange={handleChange}
                         style={{ minHeight: "65px" }}
                       ></Form.Control>
                     </Form.Group>
                     <Zoom>
                       <Form.Group>
                         <Form.Check>
-                          <Form.Check.Input type="checkbox" id="privacy" />
+                          <Form.Check.Input
+                            type="checkbox"
+                            checked={formData.privacy}
+                            onChange={handleChange}
+                            id="privacy"
+                          />
                           <Form.Check.Label htmlFor="privacy">
                             I have read the{" "}
                             <a href="/privacy" style={{ color: "#f1652a" }}>
