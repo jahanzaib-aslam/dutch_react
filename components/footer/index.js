@@ -19,7 +19,7 @@ const Footer = () => {
                   do. Therefore, all payments take place via a secure SSL
                   connection. All prices mentioned include VAT.
                 </p>
-                <div>
+                <div className="card-list">
                   <a href="#">
                     <img src="/images/visa.png" alt="" width={"38px"} />
                   </a>
@@ -85,7 +85,7 @@ const Footer = () => {
                   <Form.Control type="email" placeholder="Email" />
                   <img src="/images/mail.png" alt="" />
                 </div>
-                <Button class="btn btn-danger mt-3"> Submit </Button>
+                <button class="btn btn-danger mt-3"> Submit </button>
               </Col>
             </Row>
           </Container>

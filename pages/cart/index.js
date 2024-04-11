@@ -1,83 +1,89 @@
-import React from 'react';
+import React from "react";
 import Breadcrumbs from "../../components/breadcrumbs/breadcrumbs";
 import Layout from "../../Layout";
 import Seo from "../../Seo/Seo";
-import { Container } from 'react-bootstrap';
+import { Container } from "react-bootstrap";
 import classes from "./index.module.scss";
 
 const Cart = () => {
-    const breadcrumbItems = [
-        { title: "Home", href: "/" },
-        { text: "Flower Bag", href: "#" },
-    ];
+  const breadcrumbItems = [
+    { title: "Home", href: "/" },
+    { text: "Flower Bag", href: "#" },
+  ];
 
-    return (
-        <>
-            <Layout>                
-                <Seo />
-                <Breadcrumbs breadcrumbItems={breadcrumbItems} title={"Flower Bag"} />
-                <Container>
-                    <section className="shopping-cart spad" data-v-3cea3b73="">
-                        <div className="container" data-v-3cea3b73="">
-                            <div className="shopping__cart__area" data-v-3cea3b73="">
-                                <div className="shopping__cart__table" data-v-3cea3b73="">
-                                    <table data-v-3cea3b73="">
-                                        <thead data-v-3cea3b73="">
-                                            <tr data-v-3cea3b73="">
-                                                <th data-v-3cea3b73="">Product</th>
-                                                <th data-v-3cea3b73="">Quantity</th>
-                                                <th data-v-3cea3b73="">Price</th>
-                                                <th data-v-3cea3b73="">Total</th>
-                                                <th data-v-3cea3b73="">Remove</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody data-v-3cea3b73="">
-                                            <tr data-v-3cea3b73="">
-                                                <td data-v-3cea3b73=""></td>
-                                                <td data-v-3cea3b73=""></td>
-                                                <td data-v-3cea3b73=""></td>
-                                            </tr>
-                                            <tr data-v-3cea3b73="">
-                                                <td data-v-3cea3b73="">
-                                                    <div className="couponForm" data-v-3cea3b73="">
-                                                        <form data-v-3cea3b73="">
-                                                            <input type="text" placeholder="Coupon" data-v-3cea3b73="" />
-                                                            <button type="submit" data-v-3cea3b73="">Submit</button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                                <td data-v-3cea3b73=""></td>
-                                                <td className="label" data-v-3cea3b73="">Subtotal</td>
-                                                <td data-v-3cea3b73="">€0.00</td>
-                                            </tr>
-                                            <tr data-v-3cea3b73="">
-                                                <td data-v-3cea3b73=""></td>
-                                                <td data-v-3cea3b73=""></td>
-                                                <td className="label" data-v-3cea3b73="">Total</td>
-                                                <td data-v-3cea3b73="">€0.00</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className="row" data-v-3cea3b73="">
-                                    <div className="col-lg-6 col-md-6 col-sm-6" data-v-3cea3b73="">
-                                        <div className="continue__btn" data-v-3cea3b73="">
-                                            <a href="/shopping" className="" data-v-3cea3b73="">Continue</a>
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-6 col-md-6 col-sm-6" data-v-3cea3b73="">
-                                        <div className="checkoutBtn" data-v-3cea3b73="">
-                                            <a href="/checkout" className="primary-btn" data-v-3cea3b73="">Place Order</a>
-                                        </div>
-                                    </div>
-                                </div>
+  return (
+    <>
+      <Layout>
+        <Seo />
+        <Breadcrumbs breadcrumbItems={breadcrumbItems} title={"Flower Bag"} />
+        <section className="py-5">
+          <Container>
+            <section className="shopping-cart spad">
+              <div className="container">
+                <div className="shopping__cart__area">
+                  <div className="shopping__cart__table">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Product</th>
+                          <th>Quantity</th>
+                          <th>Price</th>
+                          <th>Total</th>
+                          <th>Remove</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className="couponForm">
+                              <form>
+                                <input type="text" placeholder="Coupon" />
+                                <button type="submit">Submit</button>
+                              </form>
                             </div>
-                        </div>
-                    </section>
-                </Container>
-            </Layout>
-        </>
-    );
-}
+                          </td>
+                          <td></td>
+                          <td className="label">Subtotal</td>
+                          <td>€0.00</td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td className="label">Total</td>
+                          <td>€0.00</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="row">
+                    <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="continue__btn">
+                        <a href="/products" className="">
+                          Continue
+                        </a>
+                      </div>
+                    </div>
+                    <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="checkoutBtn">
+                        <a href="/checkout" className="primary-btn">
+                          Place Order
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </Container>
+        </section>
+      </Layout>
+    </>
+  );
+};
 
 export default Cart;

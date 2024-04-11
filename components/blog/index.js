@@ -50,6 +50,7 @@ const Blog = ({ useSlider, blogPage, data, text, blogs }) => {
   const settings = {
     dots: false,
     infinite: true,
+    arrows:true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -85,37 +86,33 @@ const Blog = ({ useSlider, blogPage, data, text, blogs }) => {
                 <Slider {...settings} className="blog-slider">
                   {blogs.map((blog) => (
                     <div key={blog.id}>
-                      <Row>
-                        <Col>
-                          <div className={classes.blogCard}>
-                            <JackInTheBox>
-                              <div className={classes.imgBox}>
-                                <img
-                                  src={blog.image}
-                                  width={100}
-                                  height={100}
-                                  alt="Blog Image"
-                                />
-                              </div>
-                            </JackInTheBox>
-                            <Zoom>
-                              <span>{blog.date}</span>
-                              <p>{blog.title}</p>
-                              <div className="d-flex justify-content-between">
-                                <Link href={"blog/edit/" + blog.id}>
-                                  <a>Learn more</a>
-                                </Link>
+                    <div className={classes.blogCard}>
+                    <JackInTheBox>
+                      <div className={classes.imgBox}>
+                        <img
+                          src={blog.image}
+                          width={100}
+                          height={100}
+                          alt="Blog Image"
+                        />
+                      </div>
+                    </JackInTheBox>
+                    <Zoom>
+                      <span>{blog.date}</span>
+                      <p>{blog.title}</p>
+                      <div className="d-flex justify-content-between">
+                        <Link href={"blog/edit/" + blog.id}>
+                          <a>Learn more</a>
+                        </Link>
 
-                                <img
-                                  src="images/arrow.png"
-                                  width={40}
-                                  alt="Arrow"
-                                />
-                              </div>
-                            </Zoom>
-                          </div>
-                        </Col>
-                      </Row>
+                        <img
+                          src="images/arrow.png"
+                          width={40}
+                          alt="Arrow"
+                        />
+                      </div>
+                    </Zoom>
+                  </div>
                     </div>
                   ))}
                 </Slider>

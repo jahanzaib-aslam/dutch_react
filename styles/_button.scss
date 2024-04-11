@@ -8,7 +8,6 @@
   padding: 8px 18px;
   user-select: none;
   font-style: normal;
-
   font-size: 16px;
   letter-spacing: .03em;
   &.btn-primary{
@@ -35,6 +34,9 @@
       background-color: #f1652a;
       color: #fff;
     }
+  }
+  &:focus{
+    box-shadow: none;
   }
 }
 

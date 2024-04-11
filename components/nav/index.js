@@ -82,7 +82,7 @@ const Navigation = () => {
                   Registration
                 </a>
               </Link>
-              <Link href="/sign-in">
+              <Link href="/signin">
                 <a className="btn btn-outline">
                   Sign In
                 </a>

@@ -29,6 +29,16 @@ right: 30px;
   }
 }
 .blog-slider{
+  .slick-track{
+    display: flex;
+    align-items: stretch;
+    .slick-slide{
+      min-height: 100%;
+       div{
+        height: 100%;
+      }
+    } 
+  }
   .slick-prev,
   .slick-next {
     left: 0;
