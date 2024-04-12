@@ -140,7 +140,7 @@ const ExploreProducts = ({ products, home }) => {
             {products.map((item, ind) => {
               return (
                 <Col lg={3} md={6}>
-                  <Slide direction={products ? "right" : "left"} duration={products ? 0 : 600}>
+                  <Slide direction={!home ? "right" : "left"} duration={home ? 600 : 0}>
                     <Card className={`my-3 product-item `}>
                       <div
                         className="img"

@@ -140,6 +140,7 @@ const Navigation = ({ accessToken }) => {
                 </button>
                 <Link href="/cart">
                   <a className="nav-link cart-icon">
+                  <span className="counter">1</span>
                     <Image
                       src="/images/cart.png"
                       alt="Cart"

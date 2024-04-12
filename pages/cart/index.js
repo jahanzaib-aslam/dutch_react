@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import Breadcrumbs from "../../components/breadcrumbs/breadcrumbs";
 import Layout from "../../Layout";
 import Seo from "../../Seo/Seo";
 import { Container } from "react-bootstrap";
 import classes from "./index.module.scss";
+import { FaMinus, FaPlus } from "react-icons/fa6";
+import { IoIosCloseCircle } from "react-icons/io";
 
 const Cart = () => {
+  const [cartItems, setCartItems] = useState([
+    { id: 1, productName: '10x rose cherry o! 70cm', price: 11.95, quantity: 1 },
+    { id: 2, productName: 'Another Product', price: 9.99, quantity: 2 },
+    // Add more items as needed
+  ]);
+
+  const increaseQuantity = (id) => {
+    setCartItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const decreaseQuantity = (id) => {
+    setCartItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+      )
+    );
+  };
+
+  const removeItem = (id) => {
+    setCartItems(prevItems =>
+      prevItems.filter(item => item.id !== id)
+    );
+  };
   const breadcrumbItems = [
     { title: "Home", href: "/" },
     { text: "Flower Bag", href: "#" },
@@ -33,11 +62,39 @@ const Cart = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                      {cartItems.map(item => (
+                        <tr key={item.id}>
+                          <td className="product__cart__item">
+                            <div className="product__cart__item__pic">
+                              <img src="/images/prod1.jpeg" alt="" />
+                            </div>
+                            <div className="product__cart__item__text">
+                              <h6>{item.productName}</h6>
+                            </div>
+                          </td>
+                          <td className="quantity__item">
+                            <div className="quantity">
+                              <div className="quantityForm">
+                                <span className="qtybtn dec" onClick={() => decreaseQuantity(item.id)}>
+                                  <FaMinus />
+                                </span>
+                                <input type="text" value={item.quantity} readOnly />
+                                <span className="inc qtybtn" onClick={() => increaseQuantity(item.id)}>
+                                  <FaPlus />
+                                </span>
+                              </div>
+                              <div className="set-max">Max (2)</div>
+                            </div>
+                          </td>
+                          <td className="cart__price"> € {item.price}</td>
+                          <td className="cart__price"> € {item.price * item.quantity}</td>
+                          <td className="cart__close">
+                            <span style={{ cursor: "pointer" }} onClick={() => removeItem(item.id)}>
+                              <IoIosCloseCircle size={28} className="text-danger" />
+                            </span>
+                          </td>
                         </tr>
+                      ))}
                         <tr>
                           <td>
                             <div className="couponForm">
