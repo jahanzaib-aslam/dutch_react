@@ -4,19 +4,19 @@ import { Button, Container } from "react-bootstrap";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Dropdown from 'react-bootstrap/Dropdown';
 
-const Navigation = () => {
+const Navigation = ({ accessToken }) => {
   const router = useRouter();
 
   return (
     <div className={`navbar navbar-expand-lg ${classes.mainHeader}`}>
       <Container className="d-flex align-items-center">
-      <Link href="/">
-      <a className={classes.logo}>
-        <img src="/images/logo.png" alt="Logo" />
-      </a>
-    </Link>
-    
+        <Link href="/">
+          <a className={classes.logo}>
+            <img src="/images/logo.png" alt="Logo" />
+          </a>
+        </Link>
 
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -65,30 +65,50 @@ const Navigation = () => {
               </Link>
             </li>
           </ul>
-          <div className="headerAction d-flex align-items-center">
-            <div className="headerIcons d-none d-lg-block me-2">
-              <button className="search-icon nav-link">
-                <Image src="/images/search.png" alt="Search" width={16} height={16} />
-              </button>
-              <Link href="/cart" >
-                <a className="nav-link cart-icon">
-                  <Image src="/images/cart.png" alt="Cart" width={16} height={16} />
-                </a>
-              </Link>
+          {accessToken === true ? (
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+               j
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Order</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Logout</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          ) : (
+            <div className="headerAction d-flex align-items-center">
+              <div className="headerIcons d-none d-lg-block me-2">
+                <button className="search-icon nav-link">
+                  <Image
+                    src="/images/search.png"
+                    alt="Search"
+                    width={16}
+                    height={16}
+                  />
+                </button>
+                <Link href="/cart">
+                  <a className="nav-link cart-icon">
+                    <Image
+                      src="/images/cart.png"
+                      alt="Cart"
+                      width={16}
+                      height={16}
+                    />
+                  </a>
+                </Link>
+              </div>
+              <div className="headerButtons ml-md-2">
+                <Link href="/registration">
+                  <a className="btn btn-primary me-3">Registration</a>
+                </Link>
+                <Link href="/signin">
+                  <a className="btn btn-outline">Sign In</a>
+                </Link>
+              </div>
             </div>
-            <div className="headerButtons ml-md-2">
-              <Link href="/registration">
-                <a className="btn btn-primary me-3">
-                  Registration
-                </a>
-              </Link>
-              <Link href="/signin">
-                <a className="btn btn-outline">
-                  Sign In
-                </a>
-              </Link>
-            </div>
-          </div>
+          )}
         </div>
       </Container>
     </div>

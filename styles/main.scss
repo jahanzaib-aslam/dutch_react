@@ -2092,3 +2092,32 @@ footer {
     }
   }
 }
+.dropdown{
+  button{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+    background-color: #ff6600;
+    border: none;
+    &:hover, &:focus-visible{
+      background-color: #f1652a;
+      box-shadow: none !important;
+    }
+    &:after{
+      display: none;
+    }
+  }
+  .dropdown-menu{
+    a{
+      font-weight: 600;
+      &:hover{
+        background-color: #ff6600;
+        color: #fff;
+      }
+    }
+  }
+}
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
+  background-color: #f1652a;
+}
