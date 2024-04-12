@@ -60,6 +60,12 @@ const Signin = () => {
       icon: "success",
       title: "Success",
       text: "You have registered successfully",
+    }).then((result) => {
+      // Redirect to home page after user clicks "OK"
+      if (result.isConfirmed) {
+        // Perform redirection here
+        window.location.href = "/signin"; // Replace "/home" with your home page URL
+      }
     });
   };
 
