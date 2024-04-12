@@ -21,7 +21,7 @@ const Header = () => {
 
     // Now you can access the data
     if (userData && userData.token) {
-      setAccessToken(true);
+      setAccessToken(userData.token);
     }
   }, []);
 

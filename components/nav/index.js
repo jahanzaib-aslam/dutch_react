@@ -4,10 +4,58 @@ import { Button, Container } from "react-bootstrap";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import Dropdown from 'react-bootstrap/Dropdown';
+import Dropdown from "react-bootstrap/Dropdown";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Navigation = ({ accessToken }) => {
   const router = useRouter();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+
+    try {
+      const config = {
+        headers: {
+          ...axios.defaults.headers,
+          "content-type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const res = await axios.post(
+        "https://dutchflowers.devsfolio.com/api/customer/logout",
+        { Authorization: `Bearer ${accessToken}` },
+        config,
+      );
+
+      localStorage.removeItem("user");
+
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "You have Logged Out successfully",
+      }).then((result) => {
+        // Redirect to home page after user clicks "OK"
+        if (result.isConfirmed) {
+          // Perform redirection here
+          window.location.href = "/"; // Replace "/home" with your home page URL
+        }
+      });
+    } catch (error) {
+      if (error.response) {
+        console.log("Error status:", error.response.status);
+        console.log("Error data:", error.response.data);
+      }
+      // Handle error
+      console.error("Login error:", error);
+      // You can show an error message to the user or handle the error in another way
+      Swal.fire({
+        icon: "error",
+        title: "Logout Failed",
+        text: error.response.data.message,
+      });
+    }
+  };
 
   return (
     <div className={`navbar navbar-expand-lg ${classes.mainHeader}`}>
@@ -65,16 +113,18 @@ const Navigation = ({ accessToken }) => {
               </Link>
             </li>
           </ul>
-          {accessToken === true ? (
+          {accessToken !== false ? (
             <Dropdown>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
-               j
+                j
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Order</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Logout</Dropdown.Item>
+                <Dropdown.Item href="#/action-3" onClick={handleLogout}>
+                  Logout
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           ) : (
