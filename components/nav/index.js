@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./index.module.scss";
 import { Button, Container } from "react-bootstrap";
 import Link from "next/link";
@@ -9,6 +9,20 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const Navigation = ({ accessToken }) => {
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    // Retrieve the data from localStorage
+    var cartItems = localStorage.getItem("cartItems");
+
+    // Parse the JSON string back into a JavaScript object
+    var cartItems = JSON.parse(cartItems);
+
+    if (cartItems != null) {
+      setCartCount(cartItems.length);
+    }
+  }, []);
+
   const router = useRouter();
 
   const handleLogout = async (e) => {
@@ -140,7 +154,10 @@ const Navigation = ({ accessToken }) => {
                 </button>
                 <Link href="/cart">
                   <a className="nav-link cart-icon">
-                  <span className="counter">1</span>
+                    {cartCount > 0 && (
+                      <span className="counter">{cartCount}</span>
+                    )}
+
                     <Image
                       src="/images/cart.png"
                       alt="Cart"

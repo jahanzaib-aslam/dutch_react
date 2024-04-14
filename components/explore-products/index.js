@@ -5,110 +5,41 @@ import { FaTruck } from "react-icons/fa6";
 import { Fade, Slide, Zoom } from "react-awesome-reveal";
 import { FaCogs } from "react-icons/fa";
 
-const data = [
-  {
-    img: "/images/prod1.jpeg",
-    hoverImg: "/images/prodhover1.jpeg",
-    title: "25x chrysant san.madiba red tyolo 50cm",
-    price: "29.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prod2.jpg",
-    hoverImg: "/images/prodhover2.jpg",
-    title: "10x lely roselily olympia 70cm",
-    price: "29.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prodhover3.jpg",
-    hoverImg: "/images/prodhover3.jpg",
-    title: "50x cortaderia dadang pink/salmon 80cm",
-    price: "251.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prodhover4.jpg",
-    hoverImg: "/images/prodhover4.jpg",
-    title: "10x sword fern bleached 70cm",
-    price: "200.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prod5.jpg",
-    hoverImg: "/images/prodhover5.jpg",
-    title: "5x aralia extra 50cm",
-    price: "29.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prod6.jpg",
-    hoverImg: "/images/prodhover6.jpg",
-    title: "5x prot.pink ice 30cm",
-    price: "16.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prod06.jpg",
-    hoverImg: "/images/prod06.jpg",
-    title: "20x dianthus soho 60cm",
-    price: "23.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prodhover7.jpg",
-    hoverImg: "/images/prod7.jpg",
-    title: "50x tulipa puma 40cm",
-    price: "57.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prod8.jpg",
-    hoverImg: "/images/prodhover8.jpg",
-    title: "10x lely longi.wh.triumph 70cm",
-    price: "9.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prod9.jpg",
-    hoverImg: "/images/prodhover9.jpg",
-    title: "30x corylus 80cm",
-    price: "84.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prod10.jpg",
-    hoverImg: "/images/prodhover10.jpg",
-    title: "50x tulipa valeska 30cm",
-    price: "76.95",
-    stock: "3",
-    length: "50",
-  },
-  {
-    img: "/images/prod11.jpg",
-    hoverImg: "/images/prodhover11.jpg",
-    title: "10x alstroemeria casanova 70cm",
-    price: "11.95",
-    stock: "3",
-    length: "50",
-  },
-];
 const ExploreProducts = ({ products, home }) => {
   const [activeProductIndex, setActiveProductIndex] = useState(null);
 
   const toggleProductPops = (index) => {
     setActiveProductIndex(activeProductIndex === index ? null : index);
   };
+
+  const handleAddToCart = async (product) => {
+    const existingCartItems =
+      JSON.parse(localStorage.getItem("cartItems")) || [];
+
+    const existingProductIndex = existingCartItems.findIndex(
+      (item) => item.id === product.id,
+    );
+
+    if (existingProductIndex !== -1) {
+      // If the product already exists, update its quantity
+      existingCartItems[existingProductIndex].quantity += 1;
+    } else {
+      // If the product is not in the cart, add it
+      existingCartItems.push({
+        id: product.id,
+        quantity: 1,
+        image: product.default_image_url,
+        title: product.title,
+        price: product.unit[0].price.price,
+      });
+    }
+
+    // Save the updated cart items to local storage
+    localStorage.setItem("cartItems", JSON.stringify(existingCartItems));
+
+    console.log(existingCartItems);
+  };
+
   return (
     <section
       className={`mt-0 ${classes.card} ${products && classes.productCard}`}
@@ -140,7 +71,10 @@ const ExploreProducts = ({ products, home }) => {
             {products.map((item, ind) => {
               return (
                 <Col lg={3} md={6}>
-                  <Slide direction={!home ? "right" : "left"} duration={home ? 600 : 0}>
+                  <Slide
+                    direction={!home ? "right" : "left"}
+                    duration={home ? 600 : 0}
+                  >
                     <Card className={`my-3 product-item `}>
                       <div
                         className="img"
@@ -219,7 +153,12 @@ const ExploreProducts = ({ products, home }) => {
                             />
                           </Col>
                           <Col md={6} className="ps-1">
-                            <button className="addToCart">Add To Cart</button>
+                            <button
+                              className="addToCart"
+                              onClick={() => handleAddToCart(item)}
+                            >
+                              Add To Cart
+                            </button>
                           </Col>
                         </Row>
                       </div>

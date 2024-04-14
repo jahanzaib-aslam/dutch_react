@@ -6,12 +6,6 @@ import { TopHeader } from "../top-header";
 const Header = () => {
   const [accessToken, setAccessToken] = useState(false);
 
-  // Retrieve the data from localStorage
-  var userDataJSON = localStorage.getItem("user");
-
-  // Parse the JSON string back into a JavaScript object
-  var userData = JSON.parse(userDataJSON);
-
   useEffect(() => {
     // Retrieve the data from localStorage
     var userDataJSON = localStorage.getItem("user");
