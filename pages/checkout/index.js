@@ -1,23 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../Layout";
 import Seo from "../../Seo/Seo";
 import Breadcrumbs from "../../components/breadcrumbs/breadcrumbs";
 import { Col, Container, Row } from "react-bootstrap";
 
 const Checkout = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const increaseQuantity = (id) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const decreaseQuantity = (id) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
+
+  const removeItem = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    const existingCartItems =
+      JSON.parse(localStorage.getItem("cartItems")) || [];
+    const existingProductIndex = existingCartItems.findIndex(
+      (item) => item.id === id
+    );
+    if (existingProductIndex !== -1) {
+      existingCartItems.splice(existingProductIndex, 1);
+    }
+    localStorage.setItem("cartItems", JSON.stringify(existingCartItems));
+  };
+  useEffect(() => {
+    // Retrieve the data from localStorage
+    var cartItems = localStorage.getItem("cartItems");
+
+    // Parse the JSON string back into a JavaScript object
+    var cartItems = JSON.parse(cartItems);
+
+    if (cartItems != null) {
+      setCartItems(cartItems);
+    }
+  }, []);
   const breadcrumbItems = [
     { title: "Home", href: "/" },
     { text: "Checkout", href: "#" },
   ];
+  const [showMessageBox, setShowMessageBox] = useState(false);
+
+  function handleCheckboxChange(event) {
+    setShowMessageBox(event.target.checked);
+  }
   return (
     <Layout>
       <Seo />
       <Breadcrumbs breadcrumbItems={breadcrumbItems} title={"Checkout"} />
-      <section className="checkout">
+      <section className="checkout pb-0">
         <Container>
           <div className="checkout-form">
             <form action="#">
-              <div className="checkForm mb-5">
+              <div className="checkForm">
                 <Row>
                   <Col md={9}>
                     <div className="checkoutSection mb-3 mb-md-5">
@@ -117,11 +164,8 @@ const Checkout = () => {
                                 </div>
                               </Col>
                             </Row>
-                            <div
-                              class="checkout__input checkoutSet"
-                              data-v-02f2bc0c=""
-                            >
-                              <select data-v-02f2bc0c="">
+                            <div class="checkout__input checkoutSet">
+                              <select>
                                 <option value="nl">Netherlands</option>
                                 <option value="be">Belgium</option>
                                 <option value="de">Germany</option>
@@ -137,6 +181,107 @@ const Checkout = () => {
                                 rows="3"
                               />
                             </div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                    <div className="checkoutSection mb-3 mb-md-5">
+                      <h6 className="checkout__title">Shipping Address </h6>
+                      <Row>
+                        <Col lg={6}>
+                          <Row>
+                            <Col lg={6} className="mb-3">
+                              <div class="checkout__input checkoutSet">
+                                <input
+                                  type="text"
+                                  name="first-name"
+                                  placeholder="First Name*"
+                                />
+                              </div>
+                            </Col>
+                            <Col lg={6} className="mb-3">
+                              <div class="checkout__input checkoutSet">
+                                <input
+                                  type="text"
+                                  name="last-name"
+                                  placeholder="Last Name*"
+                                />
+                              </div>
+                            </Col>
+                            <Col lg={8} className="mb-3">
+                              <div className="checkout__input">
+                                <input
+                                  type="text"
+                                  name="street"
+                                  placeholder="Street*"
+                                  class="checkout__input__add"
+                                />
+                              </div>
+                            </Col>
+                            <Col md={4} className="mb-3">
+                              <div className="checkout__input">
+                                <input
+                                  type="text"
+                                  name="house-number"
+                                  class="checkout__input__add"
+                                  placeholder="Number*"
+                                />
+                              </div>
+                            </Col>
+                            <Col md={6} className="mb-3">
+                              <div className="checkout__input">
+                                <input
+                                  type="text"
+                                  name="zip-code"
+                                  placeholder="Zip Code*"
+                                />
+                              </div>
+                            </Col>
+                            <Col md={6} className="mb-3">
+                              <div className="checkout__input">
+                                <input
+                                  type="text"
+                                  name="city"
+                                  placeholder="City*"
+                                />
+                              </div>
+                            </Col>
+                            <Col className="mb-3">
+                              <div class="checkout__input checkoutSet">
+                                <select>
+                                  <option value="nl">Netherlands</option>
+                                  <option value="be">Belgium</option>
+                                  <option value="de">Germany</option>
+                                  <option value="fr">France</option>
+                                  <option value="uk">England</option>
+                                </select>
+                              </div>
+                            </Col>
+                          </Row>
+                        </Col>
+                        <Col lg={6}>
+                          <div className="checkoutMessage">
+                            <div className="checkout__input__checkbox">
+                              <label htmlFor="checkMsg">
+                                <strong>Add a Note</strong>
+                                <span> (+ €0.50 p.s.)</span>
+                                <input
+                                  type="checkbox"
+                                  id="checkMsg"
+                                  onChange={handleCheckboxChange}
+                                />
+                                <span className="checkmark"></span>
+                              </label>
+                            </div>
+                            {showMessageBox && (
+                              <div className="checkoutMessageBox">
+                                <textarea
+                                  placeholder="Add text"
+                                  maxLength="150"
+                                ></textarea>
+                                <small>0/150 Characters</small>
+                              </div>
+                            )}
                           </div>
                         </Col>
                       </Row>
@@ -223,12 +368,8 @@ const Checkout = () => {
                             alt="img"
                           />
                           <label htmlFor="eps">
-                          eps 
-                            <input
-                              type="radio"
-                              id="eps"
-                              value="eps"
-                            />
+                            eps
+                            <input type="radio" id="eps" value="eps" />
                             <span className="checkmark"></span>
                           </label>
                         </div>
@@ -238,12 +379,8 @@ const Checkout = () => {
                             alt="img"
                           />
                           <label htmlFor="eps">
-                          giropay 
-                            <input
-                              type="radio"
-                              id="giropay"
-                              value="giropay"
-                            />
+                            giropay
+                            <input type="radio" id="giropay" value="giropay" />
                             <span className="checkmark"></span>
                           </label>
                         </div>
@@ -254,6 +391,113 @@ const Checkout = () => {
               </div>
             </form>
           </div>
+        </Container>
+      </section>
+      <section className="pt-0">
+        <Container>
+          <section className="shopping-cart spad pt-0">
+            <div className="container">
+              <div className="shopping__cart__area">
+                <h6 className="checkout__title">Your Information</h6>
+
+                <div className="shopping__cart__table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cartItems.map((item) => (
+                        <tr key={item.id}>
+                          <td className="product__cart__item">
+                            <div className="product__cart__item__pic">
+                              <img src={item.image} alt="" />
+                            </div>
+                            <div className="product__cart__item__text">
+                              <h6>{item.title}</h6>
+                            </div>
+                          </td>
+                          <td className="quantity__item">
+                            <div className="quantity">
+                              <div className="quantityForm">
+                                <span
+                                  className="qtybtn dec"
+                                  onClick={() => decreaseQuantity(item.id)}
+                                >
+                                  <FaMinus />
+                                </span>
+                                <input
+                                  type="text"
+                                  value={item.quantity}
+                                  readOnly
+                                />
+                                <span
+                                  className="inc qtybtn"
+                                  onClick={() => increaseQuantity(item.id)}
+                                >
+                                  <FaPlus />
+                                </span>
+                              </div>
+                              <div className="set-max">Max (2)</div>
+                            </div>
+                          </td>
+                          <td className="cart__price"> € {item.price}</td>
+                          <td className="cart__price">
+                            {" "}
+                            € {item.price * item.quantity}
+                          </td>
+                        </tr>
+                      ))}
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td className="label">VAT </td>
+                        <td>€0.00</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td className="label">Subtotal </td>
+                        <td>€0.00</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td className="label">Delivery </td>
+                        <td>+ €7.95</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td className="label">Total </td>
+                        <td> €7.95</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="row">
+                    <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="continue__btn">
+                        <a href="/products" className="">
+                          Continue
+                        </a>
+                      </div>
+                    </div>
+                    <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="checkoutBtn">
+                        <a href="/checkout" className="primary-btn">
+                          Place Order
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </section>
         </Container>
       </section>
     </Layout>

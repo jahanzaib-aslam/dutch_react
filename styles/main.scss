@@ -959,7 +959,7 @@ footer {
   }
 }
 
-.product__details__cart__option .personalMessage .box[data-v-cd5ef9ee] {
+.product__details__cart__option .personalMessage .box {
   transition: transform 0.5s ease;
   background: rgba(241, 101, 42, 0.2);
   padding: 8px 15px;
@@ -969,11 +969,11 @@ footer {
   cursor: pointer;
 }
 
-.product__details__cart__option .personalMessage .box[data-v-cd5ef9ee]:hover {
+.product__details__cart__option .personalMessage .box:hover {
   transform: scale(1.05);
 }
 
-.product__details__cart__option .personalMessage .box .inner[data-v-cd5ef9ee] {
+.product__details__cart__option .personalMessage .box .inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -983,7 +983,7 @@ footer {
   .personalMessage
   .box
   .inner
-  img[data-v-cd5ef9ee] {
+  img {
   width: 20px;
 }
 
@@ -991,14 +991,14 @@ footer {
   .personalMessage
   .box
   .inner
-  p[data-v-cd5ef9ee] {
+  p {
   padding-left: 10px;
   font-size: 14px;
   font-weight: 700;
   color: #f1652a;
   margin-bottom: 0;
 }
-.product__details__cart__option .addCartBtn[data-v-cd5ef9ee] {
+.product__details__cart__option .addCartBtn {
   display: inline-block;
   font-size: 14px;
   font-weight: 700;
@@ -1008,27 +1008,31 @@ footer {
   background: #000;
   letter-spacing: 0.1em;
 }
-.product__details__last__option ul li[data-v-cd5ef9ee] {
+.product__details__last__option ul li {
   list-style: none;
   font-size: 15px !important;
   color: #444 !important;
   font-weight: 600;
   line-height: 27px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.product__details__last__option ul li[data-v-cd5ef9ee]:before {
-  content: "\f05a";
-  font-family: FontAwesome;
-  color: #f1652a;
-  width: 22px;
+.product__details__last__option ul li:before {
+  content: "";
+  background-image: url(../public/images/info.png);
+  background-size: contain;
+  width: 18px;
+  height: 18px;
   display: inline-block;
 }
 
-.product__details__last__option ul li span[data-v-cd5ef9ee] {
+.product__details__last__option ul li span {
   font-weight: 600;
   color: #9c9c9c;
 }
-.product__details__last__option p[data-v-cd5ef9ee] {
+.product__details__last__option p {
   font-size: 15px !important;
   color: #444 !important;
   font-weight: 600;

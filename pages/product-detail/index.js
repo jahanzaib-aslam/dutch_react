@@ -4,6 +4,7 @@ import Seo from "../../Seo/Seo";
 import Slider from "../../components/slider";
 import { Col, Container, Row } from "react-bootstrap";
 import { FiChevronUp, FiChevronDown } from "react-icons/fi";
+import Breadcrumbs from "../../components/breadcrumbs/breadcrumbs";
 
 const ProductDetail = () => {
   function Counter() {
@@ -46,11 +47,21 @@ const ProductDetail = () => {
         price: 20.29,
       },
     ];
+    const breadcrumbItems = [
+      { title: "Home", href: "/" },
+      { text: "Shop", href: "#" },
+      { text: "10x Agapanthus mediterranee 60cm", href: "#" },
+    ];
 
     return (
       <>
         <Layout>
           <Seo />
+          <Breadcrumbs
+          breadcrumbItems={breadcrumbItems}
+          title={"10x Agapanthus mediterranee 60cm"}
+        />
+          <section className="py-5">
           <Container>
             <Row>
               <Col lg={6}>
@@ -64,11 +75,11 @@ const ProductDetail = () => {
                   </div>
                   <div class="product__details__cart__option available">
                     <hr />
-                    <div class="personalMessage mb-3" data-v-cd5ef9ee="">
-                      <div class="box" data-v-cd5ef9ee="">
-                        <div class="inner" data-v-cd5ef9ee="">
+                    <div class="personalMessage mb-3">
+                      <div class="box">
+                        <div class="inner">
                           <img src="/images/amazon2.png" alt="The Woods" />
-                          <p data-v-cd5ef9ee="">Add a Card</p>
+                          <p>Add a Card</p>
                         </div>
                       </div>
                     </div>
@@ -88,43 +99,43 @@ const ProductDetail = () => {
                           </span>
                         </div>
                       </div>
-                      <span className="set-max" data-v-cd5ef9ee="">
+                      <span className="set-max">
                         Max (4)
                       </span>
-                      <button className="addCartBtn" data-v-cd5ef9ee="">
+                      <button className="addCartBtn">
                         Add To Cart
                       </button>
                     </div>
                     <hr />
                     <div
                       className="product__details__last__option"
-                      data-v-cd5ef9ee=""
+                     
                     >
-                      <ul data-v-cd5ef9ee="">
-                        <li data-v-cd5ef9ee="">
-                          <span data-v-cd5ef9ee="">Minimum steellengte:</span>{" "}
+                      <ul>
+                        <li>
+                          <span>Minimum steellengte:</span>{" "}
                           60
                         </li>
-                        <li data-v-cd5ef9ee="">
-                          <span data-v-cd5ef9ee="">
+                        <li>
+                          <span>
                             Bloem/bes/vruchtkleur 1:
                           </span>{" "}
                           Blauw
                         </li>
-                        <li data-v-cd5ef9ee="">
-                          <span data-v-cd5ef9ee="">Land van herkomst:</span>{" "}
+                        <li>
+                          <span>Land van herkomst:</span>{" "}
                           Kenia
                         </li>
-                        <li data-v-cd5ef9ee="">
-                          <span data-v-cd5ef9ee="">Kwaliteitsgroep:</span>{" "}
+                        <li>
+                          <span>Kwaliteitsgroep:</span>{" "}
                           Eerste (I)
                         </li>
-                        <li data-v-cd5ef9ee="">
-                          <span data-v-cd5ef9ee="">Aantal stelen per bos:</span>{" "}
+                        <li>
+                          <span>Aantal stelen per bos:</span>{" "}
                           10
                         </li>
-                        <li data-v-cd5ef9ee="">
-                          <span data-v-cd5ef9ee="">
+                        <li>
+                          <span>
                             Overige leveranciersinformatie:
                           </span>{" "}
                           All I Am
@@ -170,14 +181,14 @@ const ProductDetail = () => {
                     <Row className="vasees">
                       {items.map((item) => (
                         <Col key={item.id} lg={6} md={6} className="mb-4">
-                          <div className="img" data-v-cd5ef9ee="">
+                          <div className="img">
                             <img src={item.imgSrc} alt={item.name} />
                           </div>
                           <div className="name">{item.name}</div>
                           <div className="price">
                             <strong>{item.price}</strong>
                           </div>
-                          <button data-v-cd5ef9ee="">Add To Cart</button>
+                          <button>Add To Cart</button>
                         </Col>
                       ))}
                     </Row>
@@ -186,6 +197,7 @@ const ProductDetail = () => {
               </Col>
             </Row>
           </Container>
+          </section>
         </Layout>
       </>
     );

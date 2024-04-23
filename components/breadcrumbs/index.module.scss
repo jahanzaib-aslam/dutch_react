@@ -9,6 +9,15 @@
     color: #272727;
     margin-bottom: 5px;
 }
+.breadcrumbLinks{
+    li{
+        &:last-child{
+            span{
+                color: #f1652a;
+            }
+        }
+    }
+}
 
 .breadcrumbLinks a {
     font-size: 15px;
@@ -35,7 +44,7 @@
 
 .breadcrumbLinks span {
     font-size: 15px;
-    color: #f1652a;
+
     font-weight: 700;
     display: inline-block;
 }

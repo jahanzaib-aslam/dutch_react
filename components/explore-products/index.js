@@ -41,6 +41,7 @@ const ExploreProducts = ({ products, home }) => {
   };
 
   return (
+    
     <section
       className={`mt-0 ${classes.card} ${products && classes.productCard}`}
     >

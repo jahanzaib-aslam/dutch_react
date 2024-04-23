@@ -15,7 +15,7 @@ function Slideshow() {
 
   return (
     <div>
-      <Container>
+      <Container className=' position-relative'>
         <div className={classes.mySlides} style={{ display: slideIndex === 1 ? 'block' : 'none' }}>
           <img src="/images/slide1.jpg" style={{ width: "100%" }} alt="Slide 1" />
         </div>
