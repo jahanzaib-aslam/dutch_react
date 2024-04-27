@@ -41,7 +41,6 @@ const ExploreProducts = ({ products, home }) => {
   };
 
   return (
-    
     <section
       className={`mt-0 ${classes.card} ${products && classes.productCard}`}
     >
@@ -77,21 +76,23 @@ const ExploreProducts = ({ products, home }) => {
                     duration={home ? 600 : 0}
                   >
                     <Card className={`my-3 product-item `}>
-                      <div
-                        className="img"
-                        style={{
-                          backgroundImage: `url(${item.default_image_url})`,
-                          height: "250px",
-                          minHeight: "250px",
-                        }}
-                      >
+                      <a href={`/product-detail?product=${item.id}`}>
                         <div
-                          className={"hover-img"}
+                          className="img"
                           style={{
                             backgroundImage: `url(${item.default_image_url})`,
+                            height: "250px",
+                            minHeight: "250px",
                           }}
-                        ></div>
-                      </div>
+                        >
+                          <div
+                            className={"hover-img"}
+                            style={{
+                              backgroundImage: `url(${item.default_image_url})`,
+                            }}
+                          ></div>
+                        </div>
+                      </a>
                       <div className={"product-bottom"}>
                         <div className={"prod-title"}>
                           <a href="#">

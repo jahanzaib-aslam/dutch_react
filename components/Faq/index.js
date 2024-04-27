@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { Container } from "react-bootstrap";
 import classes from "./index.module.scss";
 import { Fade, Zoom } from "react-awesome-reveal";
 
 const Faqs = ({ button, faqPage, faqs }) => {
+  const [faq, setFaq] = useState([]);
+
+  useEffect(() => {
+    if (faq.length > 0) {
+      setFaq(faqs);
+    }
+  }, []);
+
   return (
     <section className={`${classes.faqs} ${faqPage && classes.title}`}>
       <div className="faqsaccordion">
@@ -14,7 +22,7 @@ const Faqs = ({ button, faqPage, faqs }) => {
           </Fade>
           <Fade direction="right">
             <Accordion>
-              {faqs.map((pg, index) => (
+              {faq.map((pg, index) => (
                 <Accordion.Item eventKey={index}>
                   <Accordion.Header>{pg.question}</Accordion.Header>
                   <Accordion.Body>{pg.answer}</Accordion.Body>

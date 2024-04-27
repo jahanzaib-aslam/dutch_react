@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
-import classes from "./index.module.scss"
+import React, { useState } from "react";
+import { Container, Row } from "react-bootstrap";
+import classes from "./index.module.scss";
 
-function Slideshow() {
+function Slideshow({ images }) {
   const [slideIndex, setSlideIndex] = useState(1);
 
   function plusSlides(n) {
@@ -15,42 +15,111 @@ function Slideshow() {
 
   return (
     <div>
-      <Container className=' position-relative'>
-        <div className={classes.mySlides} style={{ display: slideIndex === 1 ? 'block' : 'none' }}>
-          <img src="/images/slide1.jpg" style={{ width: "100%" }} alt="Slide 1" />
+      <Container className=" position-relative">
+        <div
+          className={classes.mySlides}
+          style={{ display: slideIndex === 1 ? "block" : "none" }}
+        >
+          <img
+            src="/images/slide1.jpg"
+            style={{ width: "100%" }}
+            alt="Slide 1"
+          />
         </div>
-        <div className={classes.mySlides} style={{ display: slideIndex === 2 ? 'block' : 'none' }}>
-          <img src="/images/slide2.jpg" style={{ width: "100%" }} alt="Slide 2" />
+        <div
+          className={classes.mySlides}
+          style={{ display: slideIndex === 2 ? "block" : "none" }}
+        >
+          <img
+            src="/images/slide2.jpg"
+            style={{ width: "100%" }}
+            alt="Slide 2"
+          />
         </div>
-        <div className={classes.mySlides} style={{ display: slideIndex === 3 ? 'block' : 'none' }}>
-          <img src="/images/slide1.jpg" style={{ width: "100%" }} alt="Slide 3" />
+        <div
+          className={classes.mySlides}
+          style={{ display: slideIndex === 3 ? "block" : "none" }}
+        >
+          <img
+            src="/images/slide1.jpg"
+            style={{ width: "100%" }}
+            alt="Slide 3"
+          />
         </div>
-        <div className={classes.mySlides}  style={{ display: slideIndex === 4 ? 'block' : 'none' }}>
-          <img src="/images/slide2.jpg" style={{ width: "100%" }} alt="Slide 4" />
+        <div
+          className={classes.mySlides}
+          style={{ display: slideIndex === 4 ? "block" : "none" }}
+        >
+          <img
+            src="/images/slide2.jpg"
+            style={{ width: "100%" }}
+            alt="Slide 4"
+          />
         </div>
-        <div className={classes.mySlides} style={{ display: slideIndex === 5 ? 'block' : 'none' }}>
-          <img src="/images/slide1.jpg" style={{ width: "100%" }} alt="Slide 2" />
+        <div
+          className={classes.mySlides}
+          style={{ display: slideIndex === 5 ? "block" : "none" }}
+        >
+          <img
+            src="/images/slide1.jpg"
+            style={{ width: "100%" }}
+            alt="Slide 2"
+          />
         </div>
-        <a  className={classes.prev} onClick={() => plusSlides(-1)}>❮</a>
-        <a  className={classes.next} onClick={() => plusSlides(1)}>❯</a>
+        <a className={classes.prev} onClick={() => plusSlides(-1)}>
+          ❮
+        </a>
+        <a className={classes.next} onClick={() => plusSlides(1)}>
+          ❯
+        </a>
         <div className="caption-container">
           <p id="caption"></p>
         </div>
-        <Row  className={classes.row}>
+        <Row className={classes.row}>
           <div className={classes.column}>
-            <img className="demo cursor" src="/images/slide1.jpg" style={{ width: "100%", height:"80px !important" }} onClick={() => currentSlide(1)} alt="Slide 1" />
+            <img
+              className="demo cursor"
+              src="/images/slide1.jpg"
+              style={{ width: "100%", height: "80px !important" }}
+              onClick={() => currentSlide(1)}
+              alt="Slide 1"
+            />
           </div>
           <div className={classes.column}>
-            <img className="demo cursor" src="/images/slide2.jpg" style={{ width: "100%", height:"80px !important" }} onClick={() => currentSlide(2)} alt="Slide 2" />
+            <img
+              className="demo cursor"
+              src="/images/slide2.jpg"
+              style={{ width: "100%", height: "80px !important" }}
+              onClick={() => currentSlide(2)}
+              alt="Slide 2"
+            />
           </div>
           <div className={classes.column}>
-            <img className="demo cursor" src="/images/slide1.jpg" style={{ width: "100%", height:"80px !important" }} onClick={() => currentSlide(3)} alt="Slide 3" />
+            <img
+              className="demo cursor"
+              src="/images/slide1.jpg"
+              style={{ width: "100%", height: "80px !important" }}
+              onClick={() => currentSlide(3)}
+              alt="Slide 3"
+            />
           </div>
           <div className={classes.column}>
-            <img className="demo cursor" src="/images/slide2.jpg" style={{ width: "100%", height:"80px !important" }} onClick={() => currentSlide(2)} alt="Slide 4" />
+            <img
+              className="demo cursor"
+              src="/images/slide2.jpg"
+              style={{ width: "100%", height: "80px !important" }}
+              onClick={() => currentSlide(2)}
+              alt="Slide 4"
+            />
           </div>
           <div className={classes.column}>
-            <img className="demo cursor" src="/images/slide1.jpg" style={{ width: "100%", height:"80px !important" }} onClick={() => currentSlide(1)} alt="Slide 5" />
+            <img
+              className="demo cursor"
+              src="/images/slide1.jpg"
+              style={{ width: "100%", height: "80px !important" }}
+              onClick={() => currentSlide(1)}
+              alt="Slide 5"
+            />
           </div>
         </Row>
       </Container>
