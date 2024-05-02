@@ -3,14 +3,15 @@ import Layout from "../../Layout";
 import Seo from "../../Seo/Seo";
 import Breadcrumbs from "../../components/breadcrumbs/breadcrumbs";
 import { Col, Container, Row } from "react-bootstrap";
+import { FaMinus, FaPlus } from "react-icons/fa6";
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
   const increaseQuantity = (id) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+      ),
     );
   };
 
@@ -19,8 +20,8 @@ const Checkout = () => {
       prevItems.map((item) =>
         item.id === id && item.quantity > 1
           ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
+          : item,
+      ),
     );
   };
 
@@ -29,7 +30,7 @@ const Checkout = () => {
     const existingCartItems =
       JSON.parse(localStorage.getItem("cartItems")) || [];
     const existingProductIndex = existingCartItems.findIndex(
-      (item) => item.id === id
+      (item) => item.id === id,
     );
     if (existingProductIndex !== -1) {
       existingCartItems.splice(existingProductIndex, 1);
@@ -47,6 +48,13 @@ const Checkout = () => {
       setCartItems(cartItems);
     }
   }, []);
+
+  useEffect(() => {
+    console.log(cartItems);
+    if (cartItems.length > 0) {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }
+  }, [cartItems]);
   const breadcrumbItems = [
     { title: "Home", href: "/" },
     { text: "Checkout", href: "#" },
@@ -75,14 +83,14 @@ const Checkout = () => {
                             <div class="checkout__input checkoutSet">
                               <input
                                 type="text"
-                                name="first-name"
+                                name="first_name"
                                 placeholder="First Name*"
                               />
                             </div>
                             <div class="checkout__input checkoutSet">
                               <input
                                 type="text"
-                                name="last-name"
+                                name="last_name"
                                 placeholder="Last Name*"
                               />
                             </div>
@@ -104,7 +112,11 @@ const Checkout = () => {
                               <div className="checkout__input__checkbox">
                                 <label htmlFor="acc-or">
                                   Create account?
-                                  <input type="checkbox" id="acc-or" />
+                                  <input
+                                    type="checkbox"
+                                    name="create_account"
+                                    id="acc-or"
+                                  />
                                   <span className="checkmark"></span>
                                 </label>
                               </div>
@@ -113,7 +125,11 @@ const Checkout = () => {
                               <div className="checkout__input__checkbox">
                                 <label htmlFor="deladoth">
                                   Billing address is also shipping address
-                                  <input type="checkbox" id="deladoth" />
+                                  <input
+                                    type="checkbox"
+                                    name="same_billing_address"
+                                    id="deladoth"
+                                  />
                                   <span className="checkmark"></span>
                                 </label>
                               </div>
@@ -127,7 +143,7 @@ const Checkout = () => {
                                 <div className="checkout__input">
                                   <input
                                     type="text"
-                                    name="zip-code"
+                                    name="zip"
                                     placeholder="Zip Code*"
                                   />
                                 </div>
@@ -157,7 +173,7 @@ const Checkout = () => {
                                 <div className="checkout__input">
                                   <input
                                     type="text"
-                                    name="house-number"
+                                    name="number"
                                     class="checkout__input__add"
                                     placeholder="Number*"
                                   />
@@ -165,7 +181,7 @@ const Checkout = () => {
                               </Col>
                             </Row>
                             <div class="checkout__input checkoutSet">
-                              <select>
+                              <select name="country">
                                 <option value="nl">Netherlands</option>
                                 <option value="be">Belgium</option>
                                 <option value="de">Germany</option>
@@ -176,7 +192,7 @@ const Checkout = () => {
                             <div class="checkout__input checkoutSet">
                               <textarea
                                 type="text"
-                                name="notes"
+                                name="additional_notes"
                                 placeholder="Additional Notes"
                                 rows="3"
                               />
@@ -194,7 +210,7 @@ const Checkout = () => {
                               <div class="checkout__input checkoutSet">
                                 <input
                                   type="text"
-                                  name="first-name"
+                                  name="billing_first_name"
                                   placeholder="First Name*"
                                 />
                               </div>
@@ -203,7 +219,7 @@ const Checkout = () => {
                               <div class="checkout__input checkoutSet">
                                 <input
                                   type="text"
-                                  name="last-name"
+                                  name="billing_last_name"
                                   placeholder="Last Name*"
                                 />
                               </div>
@@ -212,7 +228,7 @@ const Checkout = () => {
                               <div className="checkout__input">
                                 <input
                                   type="text"
-                                  name="street"
+                                  name="billing_street"
                                   placeholder="Street*"
                                   class="checkout__input__add"
                                 />
@@ -222,7 +238,7 @@ const Checkout = () => {
                               <div className="checkout__input">
                                 <input
                                   type="text"
-                                  name="house-number"
+                                  name="billing_number"
                                   class="checkout__input__add"
                                   placeholder="Number*"
                                 />
@@ -232,7 +248,7 @@ const Checkout = () => {
                               <div className="checkout__input">
                                 <input
                                   type="text"
-                                  name="zip-code"
+                                  name="billing_zip"
                                   placeholder="Zip Code*"
                                 />
                               </div>
@@ -241,14 +257,14 @@ const Checkout = () => {
                               <div className="checkout__input">
                                 <input
                                   type="text"
-                                  name="city"
+                                  name="billing_city"
                                   placeholder="City*"
                                 />
                               </div>
                             </Col>
                             <Col className="mb-3">
                               <div class="checkout__input checkoutSet">
-                                <select>
+                                <select name="billing_country">
                                   <option value="nl">Netherlands</option>
                                   <option value="be">Belgium</option>
                                   <option value="de">Germany</option>
@@ -267,6 +283,7 @@ const Checkout = () => {
                                 <span> (+ €0.50 p.s.)</span>
                                 <input
                                   type="checkbox"
+                                  name="additional_note_added"
                                   id="checkMsg"
                                   onChange={handleCheckboxChange}
                                 />
@@ -277,6 +294,7 @@ const Checkout = () => {
                               <div className="checkoutMessageBox">
                                 <textarea
                                   placeholder="Add text"
+                                  name="note"
                                   maxLength="150"
                                 ></textarea>
                                 <small>0/150 Characters</small>
@@ -480,21 +498,21 @@ const Checkout = () => {
                   </table>
                 </div>
                 <div className="row">
-                    <div className="col-lg-6 col-md-6 col-sm-6">
-                      <div className="continue__btn">
-                        <a href="/products" className="">
-                          Continue
-                        </a>
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-6 col-sm-6">
-                      <div className="checkoutBtn">
-                        <a href="/checkout" className="primary-btn">
-                          Place Order
-                        </a>
-                      </div>
+                  <div className="col-lg-6 col-md-6 col-sm-6">
+                    <div className="continue__btn">
+                      <a href="/products" className="">
+                        Continue
+                      </a>
                     </div>
                   </div>
+                  <div className="col-lg-6 col-md-6 col-sm-6">
+                    <div className="checkoutBtn">
+                      <a href="/checkout" className="primary-btn">
+                        Place Order
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>

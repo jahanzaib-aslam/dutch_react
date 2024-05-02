@@ -40,10 +40,18 @@ const Cart = () => {
     }
     localStorage.setItem("cartItems", JSON.stringify(existingCartItems));
   };
+
   const breadcrumbItems = [
     { title: "Home", href: "/" },
     { text: "Flower Bag", href: "#" },
   ];
+
+  useEffect(() => {
+    console.log(cartItems);
+    if (cartItems.length > 0) {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }
+  }, [cartItems]);
 
   useEffect(() => {
     // Retrieve the data from localStorage
