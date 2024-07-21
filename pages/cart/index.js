@@ -8,7 +8,10 @@ import { FaMinus, FaPlus } from "react-icons/fa6";
 import { IoIosCloseCircle } from "react-icons/io";
 
 const Cart = () => {
+  const imageBaseUrl =
+    "https://dutchflowers.devsfolio.com/storage/bouquet_images/";
   const [cartItems, setCartItems] = useState([]);
+  const [subTotal, setSubTotal] = useState(0);
 
   const increaseQuantity = (id) => {
     setCartItems((prevItems) =>
@@ -61,6 +64,13 @@ const Cart = () => {
     var cartItems = JSON.parse(cartItems);
 
     if (cartItems != null) {
+      var subT = 0;
+      cartItems.map((item, index) => {
+        let productSubTotal = item.price * item.quantity;
+        subT += productSubTotal;
+      });
+
+      setSubTotal(subT);
       setCartItems(cartItems);
     }
   }, []);
@@ -150,13 +160,7 @@ const Cart = () => {
                           </td>
                           <td></td>
                           <td className="label">Subtotal</td>
-                          <td>€0.00</td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td className="label">Total</td>
-                          <td>€0.00</td>
+                          <td>€ {subTotal}</td>
                         </tr>
                       </tbody>
                     </table>

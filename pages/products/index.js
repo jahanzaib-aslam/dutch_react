@@ -12,6 +12,7 @@ import Filter from "../../components/filter";
 const products = () => {
   const [products, setProducts] = useState(null);
   const [categories, setCategories] = useState(null);
+  const [totalProducts, setTotalProducts] = useState(0);
 
   useEffect(() => {
     // Define the URL of your API endpoint
@@ -23,7 +24,8 @@ const products = () => {
       .then((data) => {
         console.log(data);
         // Set the fetched data to the state
-        setProducts(data.data.products.data);
+        setProducts(data.data.products);
+        setTotalProducts(data.data.total_products);
         setCategories(data.data.categories);
       })
       .catch((error) => {
@@ -83,7 +85,11 @@ const products = () => {
                   <div className="letter">★</div>
                 </div>
               </div>
-              <ExploreProducts products={products} home={false} />
+              <ExploreProducts
+                products={products}
+                home={false}
+                totalProducts={totalProducts}
+              />
             </div>
           </section>
         </Container>

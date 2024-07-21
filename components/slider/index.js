@@ -3,10 +3,18 @@ import { Container, Row } from "react-bootstrap";
 import classes from "./index.module.scss";
 
 function Slideshow({ images }) {
-  const [slideIndex, setSlideIndex] = useState(1);
+  const [slideIndex, setSlideIndex] = useState(0); // Change initial index to 0
 
   function plusSlides(n) {
-    setSlideIndex(slideIndex + n);
+    setSlideIndex((prevIndex) => {
+      let newIndex = prevIndex + n;
+      if (newIndex >= images.length) {
+        newIndex = 0; // Wrap around to the first slide
+      } else if (newIndex < 0) {
+        newIndex = images.length - 1; // Wrap around to the last slide
+      }
+      return newIndex;
+    });
   }
 
   function currentSlide(n) {
@@ -15,57 +23,21 @@ function Slideshow({ images }) {
 
   return (
     <div>
-      <Container className=" position-relative">
-        <div
-          className={classes.mySlides}
-          style={{ display: slideIndex === 1 ? "block" : "none" }}
-        >
-          <img
-            src="/images/slide1.jpg"
-            style={{ width: "100%" }}
-            alt="Slide 1"
-          />
-        </div>
-        <div
-          className={classes.mySlides}
-          style={{ display: slideIndex === 2 ? "block" : "none" }}
-        >
-          <img
-            src="/images/slide2.jpg"
-            style={{ width: "100%" }}
-            alt="Slide 2"
-          />
-        </div>
-        <div
-          className={classes.mySlides}
-          style={{ display: slideIndex === 3 ? "block" : "none" }}
-        >
-          <img
-            src="/images/slide1.jpg"
-            style={{ width: "100%" }}
-            alt="Slide 3"
-          />
-        </div>
-        <div
-          className={classes.mySlides}
-          style={{ display: slideIndex === 4 ? "block" : "none" }}
-        >
-          <img
-            src="/images/slide2.jpg"
-            style={{ width: "100%" }}
-            alt="Slide 4"
-          />
-        </div>
-        <div
-          className={classes.mySlides}
-          style={{ display: slideIndex === 5 ? "block" : "none" }}
-        >
-          <img
-            src="/images/slide1.jpg"
-            style={{ width: "100%" }}
-            alt="Slide 2"
-          />
-        </div>
+      <Container className="position-relative">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={classes.mySlides}
+            style={{ display: index === slideIndex ? "block" : "none" }}
+          >
+            <img
+              src={image.imgSrc}
+              style={{ width: "100%" }}
+              alt={`slide ${index}`}
+            />
+          </div>
+        ))}
+
         <a className={classes.prev} onClick={() => plusSlides(-1)}>
           ❮
         </a>
@@ -76,51 +48,17 @@ function Slideshow({ images }) {
           <p id="caption"></p>
         </div>
         <Row className={classes.row}>
-          <div className={classes.column}>
-            <img
-              className="demo cursor"
-              src="/images/slide1.jpg"
-              style={{ width: "100%", height: "80px !important" }}
-              onClick={() => currentSlide(1)}
-              alt="Slide 1"
-            />
-          </div>
-          <div className={classes.column}>
-            <img
-              className="demo cursor"
-              src="/images/slide2.jpg"
-              style={{ width: "100%", height: "80px !important" }}
-              onClick={() => currentSlide(2)}
-              alt="Slide 2"
-            />
-          </div>
-          <div className={classes.column}>
-            <img
-              className="demo cursor"
-              src="/images/slide1.jpg"
-              style={{ width: "100%", height: "80px !important" }}
-              onClick={() => currentSlide(3)}
-              alt="Slide 3"
-            />
-          </div>
-          <div className={classes.column}>
-            <img
-              className="demo cursor"
-              src="/images/slide2.jpg"
-              style={{ width: "100%", height: "80px !important" }}
-              onClick={() => currentSlide(2)}
-              alt="Slide 4"
-            />
-          </div>
-          <div className={classes.column}>
-            <img
-              className="demo cursor"
-              src="/images/slide1.jpg"
-              style={{ width: "100%", height: "80px !important" }}
-              onClick={() => currentSlide(1)}
-              alt="Slide 5"
-            />
-          </div>
+          {images.map((image, index) => (
+            <div key={index} className={classes.column}>
+              <img
+                className="demo cursor"
+                src={image.imgSrc}
+                style={{ width: "100%", height: "80px" }} // Remove !important
+                onClick={() => currentSlide(index)}
+                alt={`Slide ${index}`}
+              />
+            </div>
+          ))}
         </Row>
       </Container>
     </div>

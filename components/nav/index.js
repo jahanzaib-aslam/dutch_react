@@ -105,6 +105,17 @@ const Navigation = ({ accessToken }) => {
               </Link>
             </li>
             <li className={`nav-item`}>
+              <Link href="/bouquets">
+                <a
+                  className={`nav-link ${
+                    router.pathname === "/bouquets" ? "active" : ""
+                  }`}
+                >
+                  Bouquet
+                </a>
+              </Link>
+            </li>
+            <li className={`nav-item`}>
               <Link href="/blogs">
                 <a
                   className={`nav-link ${

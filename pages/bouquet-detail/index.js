@@ -6,9 +6,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import { FiChevronUp, FiChevronDown } from "react-icons/fi";
 import Breadcrumbs from "../../components/breadcrumbs/breadcrumbs";
 import { useRouter } from "next/router";
-import products from "../products";
 
-const ProductDetail = () => {
+const bouquetDetail = () => {
+  const imageBaseUrl =
+    "https://dutchflowers.devsfolio.com/storage/bouquet_images/";
+
   function Counter() {
     const [count, setCount] = useState(0);
     const [detail, setDetail] = useState(null);
@@ -18,28 +20,28 @@ const ProductDetail = () => {
     // Assuming the URL is "/product-detail?product=123"
 
     useEffect(() => {
-      const { product } = router.query;
-      if (product != undefined) {
+      const { bouquet } = router.query;
+      if (bouquet != undefined) {
         const apiUrl =
-          "https://dutchflowers.devsfolio.com/api/product/detail/" + product;
+          "https://dutchflowers.devsfolio.com/api/bouquet/detail/" + bouquet;
         fetch(apiUrl)
           .then((response) => response.json())
           .then((data) => {
-            setDetail(data.data.product);
+            setDetail(data.data);
             console.log(data);
 
             const newItems = [];
-            data.data?.product.images.map((image, index) => {
+
+            data.data?.detail.children.map((category, index) => {
               const newItem = {
-                id: image.id,
-                imgSrc: image.image_url,
+                id: category.id,
+                imgSrc: imageBaseUrl + category.image,
                 name: "bbaa",
                 price: 334.4,
               };
 
               newItems.push(newItem);
             });
-
             setItems([...items, ...newItems]);
 
             if (data.data != undefined) {
@@ -52,8 +54,7 @@ const ProductDetail = () => {
               // Using a loop to iterate over each match
               let match;
               while (
-                (match = regex.exec(data.data?.product.productKenmerken)) !==
-                null
+                (match = regex.exec(data.data?.productKenmerken)) !== null
               ) {
                 // Add the matched part (excluding the braces) to the array
                 matchedParts.push(match[1]);
@@ -102,37 +103,41 @@ const ProductDetail = () => {
         setCount(count - 1);
       }
     };
-    // const items = [
-    //   {
-    //     id: 1,
-    //     imgSrc: "/images/product1.jpg",
-    //     name: "100x Dianthus duke breanthus 40cm",
-    //     price: 86.95,
-    //   },
-    //   {
-    //     id: 2,
-    //     imgSrc: "/images/product3.jpg",
-    //     name: "25x Gipskruid m.stars 80cm",
-    //     price: 59.95,
-    //   },
-    //   {
-    //     id: 3,
-    //     imgSrc: "/images/product3.jpg",
-    //     name: "10x Alstroemeria cardinal",
-    //     price: 11.95,
-    //   },
-    //   {
-    //     id: 3,
-    //     imgSrc: "/images/product4.jpg",
-    //     name: "10x Antir.opus geel 70cm",
-    //     price: 20.29,
-    //   },
-    // ];
+
     const breadcrumbItems = [
       { title: "Home", href: "/" },
       { text: "Shop", href: "#" },
-      { text: detail?.productName, href: "#" },
+      { text: detail?.detail.name, href: "#" },
     ];
+
+    const handleAddToCart = async (product) => {
+      const existingCartItems =
+        JSON.parse(localStorage.getItem("cartItems")) || [];
+
+      const existingProductIndex = existingCartItems.findIndex(
+        (item) => item.id === product.id,
+      );
+
+      if (existingProductIndex !== -1) {
+        // If the product already exists, update its quantity
+        existingCartItems[existingProductIndex].quantity += 1;
+      } else {
+        // If the product is not in the cart, add it
+        existingCartItems.push({
+          id: product.id,
+          quantity: 1,
+          image: product.default_image_url,
+          title: product.name,
+          price: product.price,
+          type: "BOUQUET",
+        });
+      }
+
+      // Save the updated cart items to local storage
+      localStorage.setItem("cartItems", JSON.stringify(existingCartItems));
+
+      console.log(existingCartItems);
+    };
 
     return (
       <>
@@ -140,48 +145,21 @@ const ProductDetail = () => {
           <Seo />
           <Breadcrumbs
             breadcrumbItems={breadcrumbItems}
-            title={detail?.productName}
+            title={detail?.detail.name}
           />
           <section className="py-5">
             <Container>
               <Row>
-                <Col lg={6}>{detail && <Slider images={items} />}</Col>
-
+                <Col lg={6}>
+                  {items.length > 0 && <Slider images={items} />}
+                </Col>
                 <Col lg={6}>
                   <div className="">
                     <div className="product__details__text">
-                      <h2>{detail?.productName}</h2>
-                      <h3>€{detail?.productPrice}</h3>
+                      <h2>{detail?.detail.name}</h2>
                     </div>
                     <div class="product__details__cart__option available">
-                      <hr />
-                      <div class="personalMessage mb-3">
-                        <div class="box">
-                          <div class="inner">
-                            <img src="/images/amazon2.png" alt="The Woods" />
-                            <p>Add a Card</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="carting">
-                        <div
-                          className="input
-                                            "
-                        >
-                          <h6>{count}</h6>
-                          <div className="d-grid">
-                            {/* Arrow icons for increment and decrement */}
-                            <span onClick={increment}>
-                              <FiChevronUp />
-                            </span>
-                            <span onClick={decrement}>
-                              <FiChevronDown />
-                            </span>
-                          </div>
-                        </div>
-                        <span className="set-max">Max (4)</span>
-                        <button className="addCartBtn">Add To Cart</button>
-                      </div>
+                      <div className="carting"></div>
                       <hr />
                       <div className="product__details__last__option">
                         <ul>
@@ -228,26 +206,38 @@ const ProductDetail = () => {
                         <br></br>
                         SAY IT WITH DUTCHFLOWERS
                       </p>
-                      <h5>Extra:</h5>
-                    </div>
-                    <div>
-                      <Row className="vasees">
-                        {items.map((item) => (
-                          <Col key={item.id} lg={6} md={6} className="mb-4">
-                            <div className="img">
-                              <img src={item.imgSrc} alt={item.name} />
-                            </div>
-                            <div className="name">{item.name}</div>
-                            <div className="price">
-                              <strong>{item.price}</strong>
-                            </div>
-                            <button>Add To Cart</button>
-                          </Col>
-                        ))}
-                      </Row>
                     </div>
                   </div>
                 </Col>
+              </Row>
+
+              <Row>
+                <div>
+                  <Row className="vasees">
+                    {detail?.categories.map((category, index) => (
+                      <Col lg={3} md={3} className="mb-4">
+                        <p>Category - {index + 1}</p>
+                        {category.map((item) => (
+                          <Col key={item.id} lg={12} md={12} className="mb-4">
+                            <div className="img">
+                              <img
+                                src={item.default_image_url}
+                                alt={item.name}
+                              />
+                            </div>
+                            <div className="name">{item.name}</div>
+                            <div className="price">
+                              <strong>€{item.price}</strong>
+                            </div>
+                            <button onClick={() => handleAddToCart(item)}>
+                              Add To Cart
+                            </button>
+                          </Col>
+                        ))}
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
               </Row>
             </Container>
           </section>
@@ -259,4 +249,4 @@ const ProductDetail = () => {
   return <Counter />;
 };
 
-export default ProductDetail;
+export default bouquetDetail;

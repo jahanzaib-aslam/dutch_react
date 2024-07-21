@@ -8,8 +8,11 @@ const Faqs = ({ button, faqPage, faqs }) => {
   const [faq, setFaq] = useState([]);
 
   useEffect(() => {
-    if (faq.length > 0) {
+    console.log(faq);
+    if (faqs.length > 0) {
       setFaq(faqs);
+    } else {
+      console.log("faqs are empty");
     }
   }, []);
 

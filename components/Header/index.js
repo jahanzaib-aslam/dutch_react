@@ -10,12 +10,14 @@ const Header = () => {
     // Retrieve the data from localStorage
     var userDataJSON = localStorage.getItem("user");
 
-    // Parse the JSON string back into a JavaScript object
-    var userData = JSON.parse(userDataJSON);
+    if (userDataJSON != "undefined") {
+      // Parse the JSON string back into a JavaScript object
+      var userData = JSON.parse(userDataJSON);
 
-    // Now you can access the data
-    if (userData && userData.token) {
-      setAccessToken(userData.token);
+      // Now you can access the data
+      if (userData && userData.token) {
+        setAccessToken(userData.token);
+      }
     }
   }, []);
 

@@ -5,7 +5,10 @@ import { FaTruck } from "react-icons/fa6";
 import { Fade, Slide, Zoom } from "react-awesome-reveal";
 import { FaCogs } from "react-icons/fa";
 
-const ExploreProducts = ({ products, home, totalProducts }) => {
+const ExploreBouquets = ({ bouquets }) => {
+  const imageBaseUrl =
+    "https://dutchflowers.devsfolio.com/storage/bouquet_images/";
+
   const [activeProductIndex, setActiveProductIndex] = useState(null);
 
   const toggleProductPops = (index) => {
@@ -28,10 +31,10 @@ const ExploreProducts = ({ products, home, totalProducts }) => {
       existingCartItems.push({
         id: product.id,
         quantity: 1,
-        image: product.default_image_url,
-        title: product.title,
+        image: product.image,
+        title: product.name,
         price: product.price,
-        type: "PRODUCT",
+        type: "BOUQUET",
       });
     }
 
@@ -43,45 +46,23 @@ const ExploreProducts = ({ products, home, totalProducts }) => {
 
   return (
     <section
-      className={`mt-0 ${classes.card} ${products && classes.productCard}`}
+      className={`mt-0 ${classes.card} ${bouquets && classes.productCard}`}
     >
       <Container>
-        {!home ? (
-          ""
-        ) : (
-          <div className={classes.slogan}>
-            <Fade direction="left">
-              <FaTruck />
-              <span>
-                Ordered on weekdays before 10:00 AM = shipped the same day!
-              </span>
-            </Fade>
-          </div>
-        )}
-        {!home && (
-          <div className="shopSubTitle">
-            <p>{totalProducts} search results</p>
-            <h6 className="fw-bold" style={{ cursor: "pointer" }}>
-              <FaCogs className="me-2" />
-              Reset Filters
-            </h6>
-          </div>
-        )}
-        {products && (
+        {bouquets && (
           <Row>
-            {products.map((item, ind) => {
+            {bouquets.map((item, ind) => {
               return (
                 <Col lg={3} md={6}>
-                  <Slide
-                    direction={!home ? "right" : "left"}
-                    duration={home ? 600 : 0}
-                  >
+                  <Slide direction="right" duration={0}>
                     <Card className={`my-3 product-item `}>
-                      <a href={`/product-detail?product=${item.id}`}>
+                      <a href={`/bouquet-detail?bouquet=${item.id}`}>
                         <div
                           className="img"
                           style={{
-                            backgroundImage: `url(${item.default_image_url})`,
+                            backgroundImage: `url(${
+                              imageBaseUrl + item.image
+                            })`,
                             height: "250px",
                             minHeight: "250px",
                           }}
@@ -89,7 +70,9 @@ const ExploreProducts = ({ products, home, totalProducts }) => {
                           <div
                             className={"hover-img"}
                             style={{
-                              backgroundImage: `url(${item.default_image_url})`,
+                              backgroundImage: `url(${
+                                imageBaseUrl + item.image
+                              })`,
                             }}
                           ></div>
                         </div>
@@ -100,19 +83,11 @@ const ExploreProducts = ({ products, home, totalProducts }) => {
                             <h3>{item.name}</h3>
                           </a>
                         </div>
-                        <div className="prod-info">
+                        {/* <div className="prod-info">
                           <div className="prod-price">
                             <span>€{item.price}</span>
                           </div>
-                          <div className="prod-cart">
-                            <button
-                              className="showPops"
-                              onClick={() => toggleProductPops(ind)}
-                            >
-                              <img src="/images/bag.png" alt="" />
-                            </button>
-                          </div>
-                        </div>
+                        </div> */}
                       </div>
                       <div
                         className={`product-pops ${
@@ -172,21 +147,9 @@ const ExploreProducts = ({ products, home, totalProducts }) => {
             })}
           </Row>
         )}
-
-        {!home ? (
-          ""
-        ) : (
-          <Zoom>
-            <div className="btnBox">
-              <a href="#" className="btn btn-primary mainBtn">
-                Explore More
-              </a>
-            </div>
-          </Zoom>
-        )}
       </Container>
     </section>
   );
 };
 
-export default ExploreProducts;
+export default ExploreBouquets;
